@@ -39,22 +39,24 @@ public class HostBlackListsValidator {
         int checkedListsCount=0;
         ArrayList<BlackListThread> th = new ArrayList<BlackListThread>();
         int part = skds.getRegisteredServersCount()/n;
+        int res = skds.getRegisteredServersCount()%n;
 
         for(int i = 0; i < n; i++){
             if(i == n-1){
-                th.add(new BlackListThread((i*part),(i*part)+part+(skds.getRegisteredServersCount()%n),ipaddress));
+                th.add(new BlackListThread((i*part),(i*part)+part+res,ipaddress));
+            }else{
+                th.add(new BlackListThread((i*part),(i*part)+part,ipaddress));
             }
+            th.get(i).start();
         }
 
-        for (int i=0;i<skds.getRegisteredServersCount() && ocurrencesCount<BLACK_LIST_ALARM_COUNT;i++){
-            checkedListsCount++;
-            
-            if (skds.isInBlackListServer(i, ipaddress)){
-                
-                blackListOcurrences.add(i);
-                
-                ocurrencesCount++;
+        for (BlackListThread thread : th) {
+            while(thread.isAlive()){
+                continue;
             }
+            checkedListsCount += thread.getCheckedListsCount();
+            ocurrencesCount += thread.getOcurrences();
+            blackListOcurrences.addAll(thread.getBlackListOcurrences());
         }
         
         if (ocurrencesCount>=BLACK_LIST_ALARM_COUNT){
