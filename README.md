@@ -3,6 +3,9 @@
 ### Arquitecturas de Software - ARSW
 ## Ejercicio Introducción al paralelismo - Hilos - Caso BlackListSearch
 
+## Integrantes
+- Juan Felipe Monroy
+- Nicolas Piñeros Campo
 
 ### Dependencias:
 ####   Lecturas:
@@ -16,12 +19,23 @@
 **Parte I - Introducción a Hilos en Java**
 
 1. De acuerdo con lo revisado en las lecturas, complete las clases CountThread, para que las mismas definan el ciclo de vida de un hilo que imprima por pantalla los números entre A y B.
+   ![CountThread](img/countThread.png)
 2. Complete el método __main__ de la clase CountMainThreads para que:
 	1. Cree 3 hilos de tipo CountThread, asignándole al primero el intervalo [0..99], al segundo [99..199], y al tercero [200..299].
+	   ![CountThreadsMain](img/countThreadsMain.png)
 	2. Inicie los tres hilos con 'start()'.
-	3. Ejecute y revise la salida por pantalla. 
+	3. Ejecute y revise la salida por pantalla.
+	   
+	   la salida resultante son numeros en desorden
+	   
+	   ![](img/salidastart.png)
 	4. Cambie el incio con 'start()' por 'run()'. Cómo cambia la salida?, por qué?.
-
+       con 'run()' la salida resultante se encuentra en orden como se ve a continuacion
+	   
+	   ![](img/salidarun.png)
+	   
+	   esto ya que con 'start()' se genera un hilo central mientras que con 'run()' se hace el llamado del metodo directamente
+	
 **Parte II - Ejercicio Black List Search**
 
 
